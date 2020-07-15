@@ -34,8 +34,7 @@ public class Pais {
 
     public enum TipoDocEnum {
         DNI(1), 
-        PASAPORTE(2),
-        ESTADOS_UNIDOS(862);
+        PASAPORTE(2);
 
         private final Integer value;
 
