@@ -25,7 +25,10 @@ public class Curso {
     private List<Clase> clases;
     @ManyToMany(mappedBy = "cursos")
     private List<Categoria> categorias;
-    @OneToMany(mappedBy = "inscripcion")
-    private Inscripcion inscripcion;
+    // maped by tiene el nombre del atributo en el objeto que corresponda, en este caso Inscripcion
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Inscripcion> inscripciones;
+
 
 }

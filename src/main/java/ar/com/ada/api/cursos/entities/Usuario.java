@@ -24,8 +24,9 @@ public class Usuario {
     @OneToOne
     @JoinColumn(name = "docente_id", referencedColumnName = "docente_id")
     private Docente docente;
-    @OneToMany(mappedBy = "inscripcion")
-    private Inscripcion inscripcion;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Inscripcion> inscripciones;
 
     public enum TipoUsuarioEnum {
         DOCENTE(1), ESTUDIANTE(2), STAFF(3);
