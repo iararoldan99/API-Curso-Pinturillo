@@ -1,6 +1,6 @@
 package ar.com.ada.api.cursos.entities;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -36,11 +36,11 @@ public class Categoria {
     // * joinColumns: Corresponde al nombre para el ID de la Entidad Categoria.
     // * inverseJoinColumns: Corresponde al nombre para el ID de la Entidad Curso
     @JoinTable(name = "curso_x_categoria", joinColumns = @JoinColumn(name = "categoria_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
-    private List<Curso> cursos;
+    private List<Curso> cursos = new ArrayList<>();
     // La tabla intermedia (curso_x_categoria) es generada por la anotación
     // @JoinTable y sus dos columnas son llaves foraneas a las tablas categoria y
     // curso.
-    
+
     public Integer getCategoriaId() {
         return categoriaId;
     }

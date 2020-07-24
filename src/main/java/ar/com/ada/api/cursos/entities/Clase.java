@@ -3,6 +3,7 @@ package ar.com.ada.api.cursos.entities;
 import java.util.List;
 
 import javax.persistence.*;
+import java.util.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -39,7 +40,7 @@ public class Clase {
     private Integer duracionHoras;
     @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Contenido> contenidos;
+    private List<Contenido> contenidos = new ArrayList<>();;
 
     // La anotación @ManyToOne cuenta con los siguientes atributos:
     // * Optional: indica si la relación es opcional, es decir, si el objeto puede
