@@ -3,6 +3,9 @@ package ar.com.ada.api.cursos.entities;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 import org.hibernate.annotations.LazyCollection;
@@ -22,10 +25,11 @@ public class Curso {
     @ManyToMany(mappedBy = "cursosQueDicta")
     private List<Docente> docentes = new ArrayList<>();;
     @ManyToMany(mappedBy = "cursosQueAsiste")
-    private List<Estudiante> estudiantes = new ArrayList<>();;
+    private List<Estudiante> estudiantes = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Clase> clases;
+    @JsonIgnore
     @ManyToMany(mappedBy = "cursos")
     private List<Categoria> categorias = new ArrayList<>();
     // maped by tiene el nombre del atributo en el objeto que corresponda, en este caso Inscripcion

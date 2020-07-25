@@ -9,6 +9,8 @@ public class Pais {
         VENEZUELA(840),
         ESTADOS_UNIDOS(862);
 
+        // value es el valor que lleva el enumerado
+
         private final Integer value;
 
         // NOTE: Enum constructor tiene que estar en privado

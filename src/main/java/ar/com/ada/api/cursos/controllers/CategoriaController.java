@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.cursos.entities.*;
+import ar.com.ada.api.cursos.models.request.CategoriaModifRequest;
 import ar.com.ada.api.cursos.models.response.GenericResponse;
 import ar.com.ada.api.cursos.services.*;
 
@@ -37,17 +38,37 @@ public class CategoriaController {
         return ResponseEntity.ok(r);
 
     }
+    @PutMapping(("/api/categorias/{id}"))
+    ResponseEntity<GenericResponse> actualizarCategoriaPorId(@PathVariable Integer id,
+            @RequestBody CategoriaModifRequest cMR) {
+        Categoria categoria = categoriaService.buscarPorId(id);
+        if (categoria == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        categoria.setNombre(cMR.nombre);
+        categoria.setDescripcion(cMR.descripcion);
+        Categoria categoriaActualizada = categoriaService.actualizarCategoria(categoria);
+
+        GenericResponse r = new GenericResponse();
+        r.isOk = true;
+        r.message = "Categoria actualizada con éxito";
+        r.id = categoriaActualizada.getCategoriaId();
+
+
+        return ResponseEntity.ok(r);
+    }
 
     // Hacer GET para que traiga todas las categorias
 
-    @GetMapping("/categorias")
+    @GetMapping("/api/categorias")
     public ResponseEntity<List<Categoria>> obtenerTodasLasCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerCategorias());
     }
 
     // Hacer GET para que traiga una sola categoria con solo colocar su id
 
-    @GetMapping("/categorias/{id}")
+    @GetMapping("/api/categorias/{id}")
     // pathvariable es una variable de ruta, la variable id de tipo int
     // va a estar en la ruta, se tiene que llavar igual a como esta declarado arriba
     public ResponseEntity<Categoria> obtenerCategoria(@PathVariable int id){
