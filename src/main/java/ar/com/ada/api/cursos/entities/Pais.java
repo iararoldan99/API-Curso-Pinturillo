@@ -6,8 +6,8 @@ public class Pais {
     
     public enum PaisEnum {
         ARGENTINA(32), 
-        VENEZUELA(840),
-        ESTADOS_UNIDOS(862);
+        ESTADOS_UNIDOS(840),
+        VENEZUELA(862);
 
         // value es el valor que lleva el enumerado
 

@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categoria")
 public class Categoria {
@@ -18,6 +20,7 @@ public class Categoria {
     private Integer categoriaId;
     private String nombre;
     private String descripcion;
+    @JsonIgnore
     @ManyToMany
     // @ManyToMany se caracteríza por Entidades que están relacionadas con
     // muchos elementos de un tipo determinado, pero al mismo tiempo, estos últimos

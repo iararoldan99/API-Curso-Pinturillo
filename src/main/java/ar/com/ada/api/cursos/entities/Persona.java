@@ -12,9 +12,9 @@ import ar.com.ada.api.cursos.entities.Pais.*;
 public class Persona {
     private String nombre;
     @Column(name = "pais_id")
-    private PaisEnum paisId;
+    private Integer paisId;
     @Column(name = "tipo_documento_id")
-    private TipoDocEnum tipoDocumentoId;
+    private Integer tipoDocumentoId;
     private String documento;
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
@@ -28,19 +28,19 @@ public class Persona {
     }
 
     public PaisEnum getPaisId() {
-        return paisId;
+        return PaisEnum.parse(this.paisId);
     }
 
     public void setPaisId(PaisEnum paisId) {
-        this.paisId = paisId;
+        this.paisId = paisId.getValue();
     }
 
     public TipoDocEnum getTipoDocumentoId() {
-        return tipoDocumentoId;
+        return TipoDocEnum.parse(this.tipoDocumentoId);
     }
 
     public void setTipoDocumentoId(TipoDocEnum tipoDocumentoId) {
-        this.tipoDocumentoId = tipoDocumentoId;
+        this.tipoDocumentoId = tipoDocumentoId.getValue();
     }
 
     public String getDocumento() {

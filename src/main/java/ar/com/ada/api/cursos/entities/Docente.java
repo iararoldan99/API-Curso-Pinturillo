@@ -5,7 +5,10 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import javax.persistence.GeneratedValue; 
+import javax.persistence.GeneratedValue;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Docente extends Persona{
     @Id
@@ -14,8 +17,10 @@ public class Docente extends Persona{
     private Integer docenteId;
     @ManyToMany
     @JoinTable(name = "docente_x_curso", joinColumns = @JoinColumn(name = "docente_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    @JsonIgnore
     private List<Curso> cursosQueDicta = new ArrayList<>();
     @OneToOne(mappedBy = "docente") // el nombre del atributo en el objeto usuario
+    @JsonIgnore
     private Usuario usuario;
 
     public Integer getDocenteId() {

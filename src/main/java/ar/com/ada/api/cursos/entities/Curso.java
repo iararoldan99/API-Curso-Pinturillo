@@ -1,13 +1,8 @@
 package ar.com.ada.api.cursos.entities;
 
 import java.util.List;
-
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.*;
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -29,7 +24,7 @@ public class Curso {
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Clase> clases;
-    @JsonIgnore
+    // @JsonIgnore quitamos el JsonIgnore y lo colocamos en Categoria
     @ManyToMany(mappedBy = "cursos")
     private List<Categoria> categorias = new ArrayList<>();
     // maped by tiene el nombre del atributo en el objeto que corresponda, en este caso Inscripcion
