@@ -1,11 +1,14 @@
 package ar.com.ada.api.cursos.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.cursos.entities.Curso;
+import ar.com.ada.api.cursos.entities.Docente;
 import ar.com.ada.api.cursos.repos.CursoRepository;
 
 @Service
