@@ -60,4 +60,14 @@ public class DocenteService {
         return docenteRepository.findAll();
     }
 
+    public boolean docenteExiste(Docente docente) {
+
+        if (docenteRepository.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(),
+                docente.getDocumento()))
+            return true;
+        else
+            return false;
+
+    }
+
 }
