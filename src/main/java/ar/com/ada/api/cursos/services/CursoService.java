@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.cursos.entities.Curso;
 import ar.com.ada.api.cursos.entities.Docente;
+import ar.com.ada.api.cursos.entities.Estudiante;
 import ar.com.ada.api.cursos.repos.CursoRepository;
 
 @Service
@@ -102,4 +103,36 @@ public class CursoService {
 
         return true;
     }
+
+    public List<Curso> listaCursosDisponibles(Estudiante estudiante) {
+        List<Curso> listaCursosDisponibles = new ArrayList<>();
+        for (Curso curso : listaCursos()) {
+            List<Estudiante> estudiantes = curso.getEstudiantes();
+
+            // buscar el nro 8, levantar la mano cuando encuentro
+
+            // 1
+            // 3
+            // 5
+            // 8 <- levantar la mano
+            // 7
+
+            boolean anotado = false;
+
+            for (Estudiante e : estudiantes) {
+                if (estudiante.getEstudianteId().equals(e.getEstudianteId())) {
+                    anotado = true;
+                    break; // rompe el ciclo for actual
+                }
+
+            }
+            if (!anotado) {
+                listaCursosDisponibles.add(curso);
+            }
+
+        }
+        return listaCursosDisponibles;
+
+    }
+
 }
