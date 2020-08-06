@@ -27,12 +27,12 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    public PaisEnum getPaisId() {
-        return PaisEnum.parse(this.paisId);
+    public Integer getPaisId() {
+        return this.paisId;
     }
 
-    public void setPaisId(PaisEnum paisId) {
-        this.paisId = paisId.getValue();
+    public void setPaisId(Integer paisId) {
+        this.paisId = paisId;
     }
 
     public TipoDocEnum getTipoDocumentoId() {

@@ -27,7 +27,7 @@ public class EstudianteService {
     // este metodo define "SI EXISTE" el estudiante
 
     public boolean crearEstudiante(Estudiante estudiante) {
-        if (estudianteRepo.existsEstudiante(estudiante.getPaisId().getValue(),
+        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(),
                 estudiante.getTipoDocumentoId().getValue(), estudiante.getDocumento()))
             return false;
         estudianteRepo.save(estudiante);
@@ -39,7 +39,7 @@ public class EstudianteService {
             Date fechaNacimiento) {
         Estudiante estudiante = new Estudiante();
         estudiante.setNombre(nombre);
-        estudiante.setPaisId(paisEnum);
+        estudiante.setPaisId(paisEnum.getValue());
         estudiante.setTipoDocumentoId(TipoDocEnum);
         estudiante.setDocumento(documento);
         estudiante.setFechaNacimiento(fechaNacimiento);
@@ -66,7 +66,7 @@ public class EstudianteService {
 
     public boolean estudianteExiste(Estudiante estudiante) {
 
-        if (estudianteRepo.existsEstudiante(estudiante.getPaisId().getValue(),
+        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(),
                 estudiante.getTipoDocumentoId().getValue(), estudiante.getDocumento()))
             return true;
         else

@@ -17,7 +17,7 @@ public class DocenteService {
     DocenteRepository docenteRepository;
 
     public boolean crearDocente(Docente docente) {
-        if (docenteRepository.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(),
+        if (docenteRepository.existsDocente(docente.getPaisId(), docente.getTipoDocumentoId().getValue(),
                 docente.getDocumento()))
             return false;
         docenteRepository.save(docente);
@@ -28,7 +28,7 @@ public class DocenteService {
             Date fechaNacimiento) {
         Docente docente = new Docente();
         docente.setNombre(nombre);
-        docente.setPaisId(paisEnum);
+        docente.setPaisId(paisEnum.getValue());
         docente.setTipoDocumentoId(TipoDocEnum);
         docente.setDocumento(documento);
         docente.setFechaNacimiento(fechaNacimiento);
@@ -62,7 +62,7 @@ public class DocenteService {
 
     public boolean docenteExiste(Docente docente) {
 
-        if (docenteRepository.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(),
+        if (docenteRepository.existsDocente(docente.getPaisId(), docente.getTipoDocumentoId().getValue(),
                 docente.getDocumento()))
             return true;
         else
