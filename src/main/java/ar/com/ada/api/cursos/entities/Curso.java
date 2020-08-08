@@ -2,6 +2,9 @@ package ar.com.ada.api.cursos.entities;
 
 import java.util.List;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,6 +33,7 @@ public class Curso {
     // maped by tiene el nombre del atributo en el objeto que corresponda, en este caso Inscripcion
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Inscripcion> inscripciones = new ArrayList<>();;
     @Column(name = "duracion_horas")
     private Integer duracionHoras;

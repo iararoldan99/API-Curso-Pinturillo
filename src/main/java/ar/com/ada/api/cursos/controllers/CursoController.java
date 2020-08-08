@@ -75,13 +75,7 @@ public class CursoController {
 
     }
 
-    @GetMapping("/api/cursos")
-  public ResponseEntity<List<Curso>> listaCursos() {
-    List<Curso> listaCursos = cursoService.listaCursos();
-
-    return ResponseEntity.ok(listaCursos);
-
-  }
+    
 
 
 }

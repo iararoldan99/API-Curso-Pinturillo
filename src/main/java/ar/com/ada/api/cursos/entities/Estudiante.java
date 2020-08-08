@@ -22,6 +22,7 @@ public class Estudiante extends Persona{
     private Integer estudianteId; 
     @ManyToMany
     @JoinTable(name = "estudiante_x_curso", joinColumns = @JoinColumn(name = "estudiante_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    @JsonIgnore
     private List<Curso> cursosQueAsiste = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL) // nombre del atributo en el obj usuario
