@@ -28,13 +28,14 @@ public class CategoriaController {
      @Autowired
     UsuarioService usuarioService;
 
-    // Post: que recibios algo, que nos permite instanciar una Categoria y ponerle
-    // datos.
+    
     // Autorizacion Forma 1
     // Metodo de verificacion 1 del checkeo que el usuario que consulta/ejecuta sea el que
     // corresponde
     // Usamos el "Principal": que es una abstraccion que nos permite acceder al
     // usuario que esta logueado
+
+    // FUNCIONA
     @PostMapping("/api/categorias")
     public ResponseEntity<GenericResponse> crearCategoria(Principal principal, @RequestBody Categoria categoria) {
 
@@ -71,8 +72,10 @@ public class CategoriaController {
     // metodo anterior
     // pero apunta a uno parecido(el de arriba es el principal authentication)
     // https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html
+
+    //  FUNCIONA !!! no funcionaba antes xq get username estaba mal escrito
     @PutMapping(("/api/categorias/{id}"))
-    @PreAuthorize("@usuarioService.buscarPorUsername(principal.getUserName()).getTipoUsuarioId().getValue() == 3") //En este caso quiero que sea STAFF(3)
+    @PreAuthorize("@usuarioService.buscarPorUsername(principal.getUsername()).getTipoUsuarioId().getValue() == 3") //En este caso quiero que sea STAFF(3)
     ResponseEntity<GenericResponse> actualizarCategoriaPorId(@PathVariable Integer id,
             @RequestBody CategoriaModifRequest cMR) {
         Categoria categoria = categoriaService.buscarPorId(id);
@@ -95,26 +98,11 @@ public class CategoriaController {
 
     // Hacer GET para que traiga todas las categorias
 
-    
+    // FUNCIONA con estudiante y con staff
     @GetMapping("/api/categorias")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or (hasAuthority('CLAIM_userType_ESTUDIANTE'))")
     public ResponseEntity<List<Categoria>> obtenerTodasLasCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerCategorias());
-    }
-
-    // Hacer GET para que traiga una sola categoria con solo colocar su id
-
-    @GetMapping("/api/categorias/{id}")
-    // pathvariable es una variable de ruta, la variable id de tipo int
-    // va a estar en la ruta, se tiene que llavar igual a como esta declarado arriba
-    public ResponseEntity<Categoria> obtenerCategoria(@PathVariable int id){
-        // siempre queremos que devuelva ok
-        Categoria categoria = categoriaService.buscarPorId(id);
-        if(categoria == null) {
-            return ResponseEntity.notFound().build();
-            // not found devuleve un objeto a construir
-            // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
-        }
-         return ResponseEntity.ok(categoria);
     }
 
      // Autorizacion Modo 3
@@ -131,6 +119,9 @@ public class CategoriaController {
     // db.
     // Este CLAIM lo podemos hacer con cualquier propiedad que querramos mandar
     // al JWT
+    
+    // FUNCIONA: Al ingresar como estudiante tira un FORBIDDEN y como staff FUNCIONA
+
     @GetMapping("/api/categorias/{id}")
     @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     ResponseEntity<CategoriaResponse> buscarPorIdCategoria(@PathVariable Integer id){
@@ -140,5 +131,6 @@ public class CategoriaController {
         cGR.descripcion = categoria.getDescripcion();
         return ResponseEntity.ok(cGR);
     }    
+    
 
 }

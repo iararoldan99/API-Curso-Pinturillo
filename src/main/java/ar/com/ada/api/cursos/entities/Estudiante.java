@@ -8,18 +8,17 @@ import javax.persistence.GenerationType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
-import java.util.List;
 
 import javax.persistence.*;
-  
+
 @Entity
-@Table(name="estudiante")
-public class Estudiante extends Persona{
+@Table(name = "estudiante")
+public class Estudiante extends Persona {
     // Solo se mapean objetos. No enumerados ni ints o demás.
     @Id
-    @Column(name="estudiante_id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer estudianteId; 
+    @Column(name = "estudiante_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer estudianteId;
     @ManyToMany
     @JoinTable(name = "estudiante_x_curso", joinColumns = @JoinColumn(name = "estudiante_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     @JsonIgnore
@@ -52,6 +51,18 @@ public class Estudiante extends Persona{
         this.usuario = usuario;
         usuario.setEstudiante(this);
 
+    }
+
+    public Estudiante(){
+        
+    }
+
+    public Estudiante(String nombre, Integer paisId, Integer tipoDocumentoId, String documento, Date fechaNacimiento,
+            Integer estudianteId, List<Curso> cursosQueAsiste, Usuario usuario) {
+        super(nombre, paisId, tipoDocumentoId, documento, fechaNacimiento);
+        this.estudianteId = estudianteId;
+        this.cursosQueAsiste = cursosQueAsiste;
+        this.usuario = usuario;
     }
     
 

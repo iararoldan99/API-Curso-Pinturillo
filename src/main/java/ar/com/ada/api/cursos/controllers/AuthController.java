@@ -1,10 +1,12 @@
 package ar.com.ada.api.cursos.controllers;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/api/auth/login") // probando nuestro login
+//    @PreAuthorize("hasAuthority('CLAIM_userType_DOCENTE') or (hasAuthority('CLAIM_userType_ESTUDIANTE')")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest)
             throws Exception {
 

@@ -145,4 +145,27 @@ public class Usuario {
         return null;
     }
 
+    public void setTipoUsuarioId(Integer tipoUsuarioId) {
+        this.tipoUsuarioId = tipoUsuarioId;
+    }
+
+    public Usuario() {
+    }
+
+    public Usuario(Integer usuarioId, String username, String password, String email, Date fechaLogin,
+            Integer tipoUsuarioId, Estudiante estudiante, Docente docente, List<Inscripcion> inscripciones) {
+        this.usuarioId = usuarioId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fechaLogin = fechaLogin;
+        this.tipoUsuarioId = tipoUsuarioId;
+        this.estudiante = estudiante;
+        this.docente = docente;
+        this.inscripciones = inscripciones;
+    }
+
+    
+    
+
 }

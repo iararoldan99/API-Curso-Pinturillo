@@ -113,4 +113,18 @@ public class Clase {
         this.contenidos = contenidos;
     }
 
+    public Clase() {
+    }
+
+    public Clase(Integer claseId, Integer numero, Curso curso, String titulo, Integer duracionHoras,
+            List<Contenido> contenidos) {
+        this.claseId = claseId;
+        this.numero = numero;
+        this.curso = curso;
+        this.titulo = titulo;
+        this.duracionHoras = duracionHoras;
+        this.contenidos = contenidos;
+    }
+
+    
 }

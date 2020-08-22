@@ -59,4 +59,21 @@ public class Persona {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public void setTipoDocumentoId(Integer tipoDocumentoId) {
+        this.tipoDocumentoId = tipoDocumentoId;
+    }
+
+    public Persona(String nombre, Integer paisId, Integer tipoDocumentoId, String documento, Date fechaNacimiento) {
+        this.nombre = nombre;
+        this.paisId = paisId;
+        this.tipoDocumentoId = tipoDocumentoId;
+        this.documento = documento;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Persona() {
+    }
+
+    
+
 }

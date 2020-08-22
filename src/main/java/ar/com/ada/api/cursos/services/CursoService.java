@@ -135,4 +135,8 @@ public class CursoService {
 
     }
 
+    public Curso actualizarCurso(Curso curso) {
+        return cursoRepository.save(curso);
+    }
+
 }

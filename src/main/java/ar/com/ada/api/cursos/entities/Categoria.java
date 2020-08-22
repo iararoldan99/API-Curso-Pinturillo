@@ -76,4 +76,18 @@ public class Categoria {
         this.cursos = cursos;
     }
 
+    public Categoria() {
+    }
+
+    public Categoria(Integer categoriaId, String nombre, String descripcion, List<Curso> cursos) {
+        this.categoriaId = categoriaId;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cursos = cursos;
+    }
+
+    
+
+    
+
 }

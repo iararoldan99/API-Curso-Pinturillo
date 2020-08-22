@@ -89,4 +89,19 @@ public class Inscripcion {
         this.estadoInscripcion = estadoInscripcion;
     }
 
+    public Inscripcion(Integer inscripcionId, Curso curso, Date fecha, Usuario usuario,
+            EstadoInscripcionEnum estadoInscripcion) {
+        this.inscripcionId = inscripcionId;
+        this.curso = curso;
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.estadoInscripcion = estadoInscripcion;
+    }
+
+    public Inscripcion(){
+        
+    }
+
+    
+
 }

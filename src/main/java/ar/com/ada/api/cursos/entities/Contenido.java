@@ -92,4 +92,19 @@ public class Contenido {
     public void setClase(Clase clase) {
         this.clase = clase;
     }
+
+    public Contenido() {
+    }
+
+    public Contenido(Integer contenidoId, String descripcion, String descripcionLarga, String payload,
+            String payloadSimple, Clase clase) {
+        this.contenidoId = contenidoId;
+        this.descripcion = descripcion;
+        this.descripcionLarga = descripcionLarga;
+        this.payload = payload;
+        this.payloadSimple = payloadSimple;
+        this.clase = clase;
+    }
+
+    
 } 

@@ -146,5 +146,24 @@ public class Curso {
         inscripcion.setCurso(this);
     }
 
+    public Curso() {
+    }
+
+    public Curso(Integer cursoId, String nombre, String descripcion, List<Docente> docentes,
+            List<Estudiante> estudiantes, List<Clase> clases, List<Categoria> categorias,
+            List<Inscripcion> inscripciones, Integer duracionHoras) {
+        this.cursoId = cursoId;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.docentes = docentes;
+        this.estudiantes = estudiantes;
+        this.clases = clases;
+        this.categorias = categorias;
+        this.inscripciones = inscripciones;
+        this.duracionHoras = duracionHoras;
+    }
+
+    
+
 
 }

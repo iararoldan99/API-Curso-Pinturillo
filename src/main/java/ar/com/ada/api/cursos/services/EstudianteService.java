@@ -97,4 +97,8 @@ public class EstudianteService {
         return inscripcion;
     }
 
+    public Estudiante actualizarEstudiante(Estudiante estudiante) {
+        return estudianteRepo.save(estudiante);
+    }
+
 }

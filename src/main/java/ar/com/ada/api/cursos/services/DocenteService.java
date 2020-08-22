@@ -70,4 +70,8 @@ public class DocenteService {
 
     }
 
+    public Docente actualizarDocente(Docente docente) {
+        return docenteRepository.save(docente);
+    }
+
 }
