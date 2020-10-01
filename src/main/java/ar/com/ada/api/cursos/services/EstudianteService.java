@@ -14,6 +14,7 @@ import ar.com.ada.api.cursos.entities.Inscripcion.EstadoInscripcionEnum;
 import ar.com.ada.api.cursos.entities.Pais.PaisEnum;
 import ar.com.ada.api.cursos.entities.Pais.TipoDocEnum;
 import ar.com.ada.api.cursos.repos.EstudianteRepository;
+import ar.com.ada.api.cursos.sistema.pagada.PagADAService;
 
 @Service
 public class EstudianteService {
@@ -23,12 +24,14 @@ public class EstudianteService {
     EstudianteRepository estudianteRepo;
     @Autowired
     CursoService cursoService;
+    @Autowired
+    PagADAService pagADAService;
 
     // este metodo define "SI EXISTE" el estudiante
 
     public boolean crearEstudiante(Estudiante estudiante) {
-        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(),
-                estudiante.getTipoDocumentoId().getValue(), estudiante.getDocumento()))
+        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(), estudiante.getTipoDocumentoId().getValue(),
+                estudiante.getDocumento()))
             return false;
         estudianteRepo.save(estudiante);
         return true;
@@ -66,14 +69,14 @@ public class EstudianteService {
 
     public boolean estudianteExiste(Estudiante estudiante) {
 
-        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(),
-                estudiante.getTipoDocumentoId().getValue(), estudiante.getDocumento()))
+        if (estudianteRepo.existsEstudiante(estudiante.getPaisId(), estudiante.getTipoDocumentoId().getValue(),
+                estudiante.getDocumento()))
             return true;
         else
             return false;
     }
 
-    public Inscripcion inscribir(Integer estudianteId, Integer cursoId) {
+    public Inscripcion inscribir(Integer estudianteId, Integer cursoId, String medioPago, String infoMedioPago) {
         // TODO:buscar el estudiante por Id
         // buscar el curso por Id;
         // Crear la inscripcion(aprobada por defecto)
@@ -85,7 +88,7 @@ public class EstudianteService {
         Inscripcion inscripcion = new Inscripcion();
 
         inscripcion.setFecha(new Date());
-        inscripcion.setEstadoInscripcion(EstadoInscripcionEnum.ACTIVO);
+        inscripcion.setEstadoInscripcion(EstadoInscripcionEnum.INACTIVO); // Pendiente de pago
 
         // inscripcion.setCurso(curso);
         inscripcion.setUsuario(estudiante.getUsuario());
@@ -94,11 +97,36 @@ public class EstudianteService {
         curso.asignarEstudiante(estudiante);
 
         estudianteRepo.save(estudiante);
+
+        // Hasta aca, tenemos la inscripcion creada SIN Pagar
+        if (estudiante.getPagADA_deudorId() == null) {
+            Integer pagADADeudorId = pagADAService.crearDeudor(estudiante);
+            estudiante.setPagADA_deudorId(pagADADeudorId);
+        }
+
         return inscripcion;
     }
 
     public Estudiante actualizarEstudiante(Estudiante estudiante) {
         return estudianteRepo.save(estudiante);
+    }
+
+    public Inscripcion pagarInscripcion(Inscripcion inscripcion, String medioPago, String infoMedioPago) {
+
+        // 1. Crear deuda
+        Integer servicioId = pagADAService.crearDeuda(inscripcion);
+
+        // 2. Pagar la deuda por Id
+        Integer pagoId = pagADAService.pagarServicio(inscripcion, medioPago, infoMedioPago);
+
+        // 3. Si todo eestuvo bien, cambiar la inscripcion a ACTIVA
+
+        inscripcion.setEstadoInscripcion(EstadoInscripcionEnum.ACTIVO);
+
+        Estudiante estudiante = inscripcion.getUsuario().getEstudiante();
+        estudianteRepo.save(estudiante);
+
+        return inscripcion;
     }
 
 }

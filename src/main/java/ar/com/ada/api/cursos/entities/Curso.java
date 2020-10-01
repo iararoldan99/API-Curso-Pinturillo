@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.math.BigDecimal;
 import java.util.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,13 +31,16 @@ public class Curso {
     // @JsonIgnore quitamos el JsonIgnore y lo colocamos en Categoria
     @ManyToMany(mappedBy = "cursos")
     private List<Categoria> categorias = new ArrayList<>();
-    // maped by tiene el nombre del atributo en el objeto que corresponda, en este caso Inscripcion
+    // maped by tiene el nombre del atributo en el objeto que corresponda, en este
+    // caso Inscripcion
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private List<Inscripcion> inscripciones = new ArrayList<>();;
     @Column(name = "duracion_horas")
     private Integer duracionHoras;
+    private BigDecimal precio;
+    private String moneda;
 
     public Integer getDuracionHoras() {
         return duracionHoras;
@@ -163,7 +167,20 @@ public class Curso {
         this.duracionHoras = duracionHoras;
     }
 
-    
+    public BigDecimal getPrecio() {
+        return precio;
+    }
 
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
 
 }

@@ -26,6 +26,8 @@ public class Estudiante extends Persona {
     @JsonIgnore
     @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL) // nombre del atributo en el obj usuario
     private Usuario usuario;
+    @Column(name = "pagada_deudor_id")
+    private Integer PagADA_deudorId; 
 
     public Integer getEstudianteId() {
         return estudianteId;
@@ -53,8 +55,8 @@ public class Estudiante extends Persona {
 
     }
 
-    public Estudiante(){
-        
+    public Estudiante() {
+
     }
 
     public Estudiante(String nombre, Integer paisId, Integer tipoDocumentoId, String documento, Date fechaNacimiento,
@@ -64,10 +66,14 @@ public class Estudiante extends Persona {
         this.cursosQueAsiste = cursosQueAsiste;
         this.usuario = usuario;
     }
-    
 
+    public Integer getPagADA_deudorId() {
+        return PagADA_deudorId;
+    }
 
+    public void setPagADA_deudorId(Integer pagADA_deudorId) {
+        PagADA_deudorId = pagADA_deudorId;
+    }
 
-    
-
+  
 }
