@@ -4,13 +4,11 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.cursos.entities.*;
-import ar.com.ada.api.cursos.entities.Usuario.TipoUsuarioEnum;
 import ar.com.ada.api.cursos.models.request.CategoriaModifRequest;
 import ar.com.ada.api.cursos.models.response.CategoriaResponse;
 import ar.com.ada.api.cursos.models.response.GenericResponse;
@@ -38,20 +36,17 @@ public class CategoriaController {
     // FUNCIONA
     @PostMapping("/api/categorias")
     public ResponseEntity<GenericResponse> crearCategoria(Principal principal, @RequestBody Categoria categoria) {
-/*
-        Usuario usuario = usuarioService.buscarPorUsername(principal.getName());
-
-        if (usuario.getTipoUsuarioId() != TipoUsuarioEnum.STAFF) {
-            // chau chau y le damos un 403: Forbidden
-            // Este le avismos que hay algo, pero no lo dejamos entrar
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-
-            // en vez de tirar un 403, tiramos un 404(Not Found) y le mentimos.
-            // en este caso ni siquiera le contamos qeu hay algo ahi como para que pueda
-            // seguir intentando.
-            // return ResponseEntity.notFound().build();
-        }
-        */
+        /*
+         * Usuario usuario = usuarioService.buscarPorUsername(principal.getName());
+         * 
+         * if (usuario.getTipoUsuarioId() != TipoUsuarioEnum.STAFF) { // chau chau y le
+         * damos un 403: Forbidden // Este le avismos que hay algo, pero no lo dejamos
+         * entrar return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+         * 
+         * // en vez de tirar un 403, tiramos un 404(Not Found) y le mentimos. // en
+         * este caso ni siquiera le contamos qeu hay algo ahi como para que pueda //
+         * seguir intentando. // return ResponseEntity.notFound().build(); }
+         */
 
         categoriaService.crear(categoria);
 
