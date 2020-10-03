@@ -25,12 +25,12 @@ public class CategoriaController {
     @Autowired
     CategoriaService categoriaService;
 
-     @Autowired
+    @Autowired
     UsuarioService usuarioService;
 
-    
     // Autorizacion Forma 1
-    // Metodo de verificacion 1 del checkeo que el usuario que consulta/ejecuta sea el que
+    // Metodo de verificacion 1 del checkeo que el usuario que consulta/ejecuta sea
+    // el que
     // corresponde
     // Usamos el "Principal": que es una abstraccion que nos permite acceder al
     // usuario que esta logueado
@@ -38,21 +38,22 @@ public class CategoriaController {
     // FUNCIONA
     @PostMapping("/api/categorias")
     public ResponseEntity<GenericResponse> crearCategoria(Principal principal, @RequestBody Categoria categoria) {
-
+/*
         Usuario usuario = usuarioService.buscarPorUsername(principal.getName());
 
-        if(usuario.getTipoUsuarioId() != TipoUsuarioEnum.STAFF) {
-            //chau chau y le damos un 403: Forbidden
-            //Este le avismos que hay algo, pero no lo dejamos entrar
+        if (usuario.getTipoUsuarioId() != TipoUsuarioEnum.STAFF) {
+            // chau chau y le damos un 403: Forbidden
+            // Este le avismos que hay algo, pero no lo dejamos entrar
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-            //en vez de tirar un 403, tiramos un 404(Not Found) y le mentimos.
-            //en este caso ni siquiera le contamos qeu hay algo ahi como para que pueda
+            // en vez de tirar un 403, tiramos un 404(Not Found) y le mentimos.
+            // en este caso ni siquiera le contamos qeu hay algo ahi como para que pueda
             // seguir intentando.
-            //return ResponseEntity.notFound().build();
-        }   
+            // return ResponseEntity.notFound().build();
+        }
+        */
 
-        categoriaService.crearCategoria(categoria);
+        categoriaService.crear(categoria);
 
         GenericResponse r = new GenericResponse();
         r.isOk = true;
@@ -73,9 +74,15 @@ public class CategoriaController {
     // pero apunta a uno parecido(el de arriba es el principal authentication)
     // https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html
 
-    //  FUNCIONA !!! no funcionaba antes xq get username estaba mal escrito
+    // FUNCIONA !!! no funcionaba antes xq get username estaba mal escrito
     @PutMapping(("/api/categorias/{id}"))
-    @PreAuthorize("@usuarioService.buscarPorUsername(principal.getUsername()).getTipoUsuarioId().getValue() == 3") //En este caso quiero que sea STAFF(3)
+    @PreAuthorize("@usuarioService.buscarPorUsername(principal.getUsername()).getTipoUsuarioId().getValue() == 3") // En
+                                                                                                                   // este
+                                                                                                                   // caso
+                                                                                                                   // quiero
+                                                                                                                   // que
+                                                                                                                   // sea
+                                                                                                                   // STAFF(3)
     ResponseEntity<GenericResponse> actualizarCategoriaPorId(@PathVariable Integer id,
             @RequestBody CategoriaModifRequest cMR) {
         Categoria categoria = categoriaService.buscarPorId(id);
@@ -85,13 +92,12 @@ public class CategoriaController {
 
         categoria.setNombre(cMR.nombre);
         categoria.setDescripcion(cMR.descripcion);
-        Categoria categoriaActualizada = categoriaService.actualizarCategoria(categoria);
+        Categoria categoriaActualizada = categoriaService.actualizar(categoria);
 
         GenericResponse r = new GenericResponse();
         r.isOk = true;
         r.message = "Categoria actualizada con éxito";
         r.id = categoriaActualizada.getCategoriaId();
-
 
         return ResponseEntity.ok(r);
     }
@@ -102,10 +108,10 @@ public class CategoriaController {
     @GetMapping("/api/categorias")
     @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or (hasAuthority('CLAIM_userType_ESTUDIANTE'))")
     public ResponseEntity<List<Categoria>> obtenerTodasLasCategorias() {
-        return ResponseEntity.ok(categoriaService.obtenerCategorias());
+        return ResponseEntity.ok(categoriaService.listarTodas());
     }
 
-     // Autorizacion Modo 3
+    // Autorizacion Modo 3
     // Metodo Verificacion 3: haciendo lo mismo que antes, pero leyendo
     // desde el el authority. O sea , cuando creamos el User para el UserDetails(no
     // el usuario)
@@ -115,22 +121,22 @@ public class CategoriaController {
     // Llenandolo desde la Base de datos, o desde el JWT
     // Desde la DB nos da mas seguridad pero cada vez que se ejecute es ir a buscar
     // a la DB
-    // Desde el JWT, si bien exponemos el entityId/usertype, nos permite evitarnos ir a la
+    // Desde el JWT, si bien exponemos el entityId/usertype, nos permite evitarnos
+    // ir a la
     // db.
     // Este CLAIM lo podemos hacer con cualquier propiedad que querramos mandar
     // al JWT
-    
+
     // FUNCIONA: Al ingresar como estudiante tira un FORBIDDEN y como staff FUNCIONA
 
     @GetMapping("/api/categorias/{id}")
     @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
-    ResponseEntity<CategoriaResponse> buscarPorIdCategoria(@PathVariable Integer id){
+    ResponseEntity<CategoriaResponse> buscarPorIdCategoria(@PathVariable Integer id) {
         Categoria categoria = categoriaService.buscarPorId(id);
         CategoriaResponse cGR = new CategoriaResponse();
         cGR.nombre = categoria.getNombre();
         cGR.descripcion = categoria.getDescripcion();
         return ResponseEntity.ok(cGR);
-    }    
-    
+    }
 
 }
